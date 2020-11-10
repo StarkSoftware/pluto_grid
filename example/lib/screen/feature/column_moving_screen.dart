@@ -22,9 +22,24 @@ class _ColumnMovingScreenState extends State<ColumnMovingScreen> {
 
     columns = [
       PlutoColumn(
-        title: 'Column A',
+        title: '',
         field: 'column_a',
-        type: PlutoColumnType.text(),
+        enableColumnDrag: false,
+        enableRowChecked: false,
+        enableSorting: false,
+        enableContextMenu: false,
+        width: 60,
+        type: PlutoColumnType.iconbutton(widget: (dynamic value) {
+          if (value != null) {
+            return IconButton(
+              icon: Icon(Icons.volume_up),
+              onPressed: () {
+                doClick(value);
+              },
+            );
+          }
+          return Icon(Icons.image_not_supported_outlined);
+        })
       ),
       PlutoColumn(
         title: 'Column B',
@@ -41,26 +56,30 @@ class _ColumnMovingScreenState extends State<ColumnMovingScreen> {
     rows = [
       PlutoRow(
         cells: {
-          'column_a': PlutoCell(value: 'a1'),
+          'column_a': PlutoCell(value: "KEY ID"),
           'column_b': PlutoCell(value: 'b1'),
-          'column_c': PlutoCell(value: 'c1'),
+          'column_c': PlutoCell(value: 'https://user-images.githubusercontent.com/1258285/98427754-7341f480-20af-11eb-952a-971295a05b43.png'),
         },
       ),
       PlutoRow(
         cells: {
           'column_a': PlutoCell(value: 'a2'),
           'column_b': PlutoCell(value: 'b2'),
-          'column_c': PlutoCell(value: 'c2'),
+          'column_c': PlutoCell(value: null),
         },
       ),
       PlutoRow(
         cells: {
           'column_a': PlutoCell(value: 'a3'),
           'column_b': PlutoCell(value: 'b3'),
-          'column_c': PlutoCell(value: 'c3'),
+          'column_c': PlutoCell(),
         },
       ),
     ];
+  }
+
+  void doClick(dynamic value) {
+    print("CLICK");
   }
 
   @override

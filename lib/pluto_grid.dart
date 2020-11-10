@@ -83,6 +83,8 @@ part './src/widget/cell_widget.dart';
 
 part './src/widget/cells/date_cell_widget.dart';
 
+part './src/widget/cells/iconbutton_cell_widget.dart';
+
 part './src/widget/cells/default_cell_widget.dart';
 
 part './src/widget/cells/number_cell_widget.dart';

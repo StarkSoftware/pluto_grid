@@ -147,6 +147,12 @@ abstract class PlutoColumnType {
     );
   }
 
+  factory PlutoColumnType.iconbutton(
+      {dynamic defaultValue,
+        @required Widget Function(dynamic value) widget}) {
+    return PlutoColumnTypeIconButton(defaultValue: defaultValue, buildWidget: widget);
+  }
+
   /// Set to numeric column.
   ///
   /// [format]
@@ -238,12 +244,18 @@ extension PlutoColumnTypeExtension on PlutoColumnType {
 
   bool get isTime => this is PlutoColumnTypeTime;
 
+  bool get isIconButton => this is PlutoColumnTypeIconButton;
+
   PlutoColumnTypeText get text {
     return this is PlutoColumnTypeText ? this : throw TypeError();
   }
 
   PlutoColumnTypeNumber get number {
     return this is PlutoColumnTypeNumber ? this : throw TypeError();
+  }
+
+  PlutoColumnTypeIconButton get iconbutton {
+    return this is PlutoColumnTypeIconButton ? this : throw TypeError();
   }
 
   PlutoColumnTypeSelect get select {
@@ -428,6 +440,26 @@ class PlutoColumnTypeDate
 
     return intl.DateFormat(format).format(DateTime.parse(value));
   }
+}
+
+class PlutoColumnTypeIconButton implements PlutoColumnType {
+  @override
+  dynamic defaultValue;
+
+  final Widget Function(dynamic value) buildWidget;
+
+  @override
+  bool readOnly = true;
+
+  PlutoColumnTypeIconButton({this.defaultValue, @required this.buildWidget});
+
+  @override
+  int compare(dynamic a, dynamic b) {
+    return a.compareTo(b);
+  }
+
+  @override
+  bool isValid(value) => true;
 }
 
 class PlutoColumnTypeTime implements PlutoColumnType {
